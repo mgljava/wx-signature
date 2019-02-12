@@ -31,12 +31,12 @@ public class SignatureController {
     if (accessToken == null) {
       System.out.println("accessToken == null");
       accessToken = HttpClientUtils.getWxChatAccessToken();
-      CacheManager.put("token", accessToken, 20);
+      CacheManager.put("token", accessToken, 7200);
     }
     if (wxChatTicket == null) {
       System.out.println("wxChatTicket == null");
       wxChatTicket = HttpClientUtils.getWxChatTicket(accessToken);
-      CacheManager.put("ticket", wxChatTicket, 20);
+      CacheManager.put("ticket", wxChatTicket, 7200);
     }
     String code =
         "jsapi_ticket=" + wxChatTicket + "&noncestr=" + noncestr + "&timestamp=" + timestamp
