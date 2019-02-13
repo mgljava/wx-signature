@@ -1,6 +1,7 @@
 package com.github.mgljava.wxsignature.controller;
 
 import com.github.mgljava.wxsignature.service.SignatureService;
+import javax.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,8 +24,10 @@ public class SignatureController {
   @GetMapping(value = "/get")
   public ResponseEntity getSignature(@RequestParam("noncestr") String noncestr,
       @RequestParam("timestamp") String timestamp,
-      @RequestParam("url") String url) {
+      @RequestParam("url") String url,
+      HttpServletResponse response) {
     final String signature = signatureService.generateSignature(noncestr, timestamp, url);
+    response.addHeader("Access-Control-Allow-Origin", "*");
     return ResponseEntity.ok(signature);
   }
 }
